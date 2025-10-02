@@ -1,0 +1,16 @@
+RewriteEngine On
+RewriteBase /floreria/
+
+# Redirigir root a home
+RewriteRule ^$ public/index.php?url=home [L,QSA]
+
+# Redirigir todas las URLs al front controller
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ public/index.php?url=$1 [L,QSA]
+
+# Proteger archivos
+<Files "config.php">
+    Order Allow,Deny
+    Deny from all
+</Files>
