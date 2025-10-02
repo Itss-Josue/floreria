@@ -264,13 +264,15 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?php echo ($_GET['url'] ?? '') === 'carrito' ? 'active' : ''; ?>" 
-                           href="<?php echo BASE_URL; ?>/carrito">
-                            <i class="bi bi-cart3 me-1"></i>Carrito
-                            <?php if (isset($_SESSION['carrito_compras']) && count($_SESSION['carrito_compras']) > 0): ?>
-                                <span class="cart-badge"><?php echo count($_SESSION['carrito_compras']); ?></span>
-                            <?php endif; ?>
-                        </a>
+                        <!-- En el navbar -->
+<a class="nav-link position-relative" href="<?php echo BASE_URL; ?>/carrito">
+    <i class="bi bi-cart3"></i> Carrito
+    <?php if (!empty($_SESSION[CARRITO_SESSION])): ?>
+        <span class="cart-badge text-white">
+            <?php echo array_sum(array_column($_SESSION[CARRITO_SESSION], 'cantidad')); ?>
+        </span>
+    <?php endif; ?>
+</a>
                     </li>
                 </ul>
             </div>

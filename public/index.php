@@ -2,52 +2,45 @@
 // Cargar configuración
 require_once '../config/config.php';
 
-// Autoload simple
-spl_autoload_register(function($className) {
-    $paths = [
-        '../app/controllers/',
-        '../app/models/'
-    ];
+// Router simple
+$url = $_GET['url'] ?? 'home';
+$url = rtrim($url, '/');
+$urlParts = explode('/', $url);
+
+$controllerName = ucfirst($urlParts[0] ?? 'home') . 'Controller';
+$method = $urlParts[1] ?? 'index';
+$param = $urlParts[2] ?? null;
+
+// DEBUG: Ver qué URL se está procesando
+// echo "Controller: $controllerName, Method: $method, Param: $param<br>";
+
+// Cargar controlador
+$controllerPath = "../app/controllers/{$controllerName}.php";
+
+if (file_exists($controllerPath)) {
+    require_once $controllerPath;
     
-    foreach ($paths as $path) {
-        $file = $path . $className . '.php';
-        if (file_exists($file)) {
-            require_once $file;
-            return;
-        }
-    }
-});
-
-// Routing básico
-$request = $_GET['url'] ?? '';
-$request = rtrim($request, '/');
-
-if (empty($request)) {
-    $request = 'home';
-}
-
-$parts = explode('/', $request);
-
-$controllerName = ucfirst($parts[0]) . 'Controller';
-$method = $parts[1] ?? 'index';
-$id = $parts[2] ?? null;
-
-if (file_exists("../app/controllers/{$controllerName}.php")) {
-    require_once "../app/controllers/{$controllerName}.php";
-    
-    $controller = new $controllerName();
-    
-    if (method_exists($controller, $method)) {
-        if ($id) {
-            $controller->$method($id);
+    // Verificar si la clase existe
+    if (class_exists($controllerName)) {
+        $controller = new $controllerName();
+        
+        if (method_exists($controller, $method)) {
+            if ($param) {
+                $controller->$method($param);
+            } else {
+                $controller->$method();
+            }
         } else {
-            $controller->$method();
+            // Método no encontrado
+            http_response_code(404);
+            echo "Método no encontrado: $method";
         }
     } else {
         http_response_code(404);
-        echo "Página no encontrada";
+        echo "Clase no encontrada: $controllerName";
     }
 } else {
+    // Controlador no encontrado
     http_response_code(404);
-    echo "Página no encontrada";
+    echo "Controlador no encontrado: $controllerPath";
 }

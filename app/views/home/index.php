@@ -1,82 +1,82 @@
 
 
     <!-- Productos Destacados -->
-    <section id="destacados" class="py-5 bg-light">
-        <div class="container">
-            <div class="row mb-5">
-                <div class="col-12 text-center animate-fade-in-up">
-                    <span class="badge bg-primary-soft text-primary rounded-pill px-3 py-2 mb-3">Productos Exclusivos</span>
-                    <h2 class="display-5 fw-bold text-dark mb-3">Flores Destacadas</h2>
-                    <p class="text-muted lead">Selección especial de nuestras flores más populares</p>
-                </div>
+<section id="destacados" class="py-5 bg-light">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-12 text-center animate-fade-in-up">
+                <span class="badge bg-primary-soft text-primary rounded-pill px-3 py-2 mb-3">Productos Exclusivos</span>
+                <h2 class="display-5 fw-bold text-dark mb-3">Flores Destacadas</h2>
+                <p class="text-muted lead">Selección especial de nuestras flores más populares</p>
             </div>
-            
-            <?php if (!empty($productosDestacados)): ?>
-                <div class="row g-4">
-                    <?php foreach ($productosDestacados as $index => $producto): ?>
-                        <div class="col-xl-3 col-lg-4 col-md-6 animate-stagger" style="--stagger-order: <?php echo $index + 1; ?>">
-                            <div class="card product-card h-100 border-0 shadow-sm rounded-4 overflow-hidden hover-lift">
-                                <div class="card-img-container position-relative overflow-hidden">
-                                    <img src="<?php echo BASE_URL; ?>/public/images/<?php echo $producto['imagen_principal'] ?: 'default.jpg'; ?>" 
-                                         class="card-img-top product-image" 
-                                         alt="<?php echo htmlspecialchars($producto['nombre']); ?>">
-                                    <div class="card-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
-                                        <div class="overlay-content opacity-0 translate-y-3">
-                                            <a href="<?php echo BASE_URL; ?>/carrito/agregar/<?php echo $producto['id']; ?>" 
-                                               class="btn btn-primary btn-lg rounded-pill px-4 shadow">
-                                                <i class="bi bi-cart-plus me-2"></i>Agregar
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <?php if ($producto['precio_original']): ?>
-                                        <span class="badge bg-danger position-absolute top-0 end-0 m-3 px-3 py-2 rounded-pill shadow">
-                                            -<?php echo number_format((($producto['precio_original'] - $producto['precio']) / $producto['precio_original']) * 100, 0); ?>%
-                                        </span>
-                                    <?php endif; ?>
-                                </div>
-                                <div class="card-body p-4 d-flex flex-column">
-                                    <div class="d-flex justify-content-between align-items-start mb-2">
-                                        <h5 class="card-title fw-bold text-dark mb-0"><?php echo htmlspecialchars($producto['nombre']); ?></h5>
-                                        <i class="bi bi-heart text-muted hover-scale"></i>
-                                    </div>
-                                    <p class="card-text text-muted small flex-grow-1"><?php echo htmlspecialchars($producto['descripcion']); ?></p>
-                                    <div class="mt-auto">
-                                        <div class="d-flex justify-content-between align-items-center mb-3">
-                                            <?php if ($producto['precio_original']): ?>
-                                                <span class="text-muted text-decoration-line-through small">$<?php echo number_format($producto['precio_original'], 2); ?></span>
-                                            <?php endif; ?>
-                                            <span class="h4 text-primary fw-bold mb-0">$<?php echo number_format($producto['precio'], 2); ?></span>
-                                        </div>
-                                        <div class="d-grid">
-                                            <a href="<?php echo BASE_URL; ?>/carrito/agregar/<?php echo $producto['id']; ?>" 
-                                               class="btn btn-outline-primary rounded-pill d-md-none">
-                                                <i class="bi bi-cart-plus me-2"></i>Agregar
-                                            </a>
-                                        </div>
+        </div>
+        
+        <?php if (!empty($productosDestacados)): ?>
+            <div class="row g-4">
+                <?php foreach ($productosDestacados as $index => $producto): ?>
+                    <div class="col-xl-3 col-lg-4 col-md-6 animate-stagger" style="--stagger-order: <?php echo $index + 1; ?>">
+                        <div class="card product-card h-100 border-0 shadow-sm rounded-4 overflow-hidden hover-lift">
+                            <div class="card-img-container position-relative overflow-hidden">
+                                <img src="<?php echo BASE_URL; ?>/public/images/<?php echo $producto['imagen_principal'] ?: 'flor1.jpg'; ?>" 
+                                     class="card-img-top product-image" 
+                                     alt="<?php echo htmlspecialchars($producto['nombre']); ?>">
+                                <div class="card-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
+                                    <div class="overlay-content opacity-0 translate-y-3">
+                                        <a href="<?php echo BASE_URL; ?>/carrito/agregar/<?php echo $producto['id']; ?>" 
+                                           class="btn btn-primary btn-lg rounded-pill px-4 shadow">
+                                            <i class="bi bi-cart-plus me-2"></i>Agregar
+                                        </a>
                                     </div>
                                 </div>
+                                <?php if ($producto['precio_original']): ?>
+                                    <span class="badge bg-danger position-absolute top-0 end-0 m-3 px-3 py-2 rounded-pill shadow">
+                                        -<?php echo number_format((($producto['precio_original'] - $producto['precio']) / $producto['precio_original']) * 100, 0); ?>%
+                                    </span>
+                                <?php endif; ?>
                             </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            <?php else: ?>
-                <div class="row animate-fade-in-up">
-                    <div class="col-12">
-                        <div class="card border-0 bg-gradient-warning text-center py-5 rounded-4 shadow-sm">
-                            <div class="card-body">
-                                <i class="bi bi-flower3 display-1 text-white mb-3"></i>
-                                <h3 class="text-white mb-3">Próximamente Nuevas Flores</h3>
-                                <p class="text-white-80 mb-4">Estamos preparando una nueva colección especial para ti.</p>
-                                <a href="<?php echo BASE_URL; ?>/producto" class="btn btn-light btn-lg rounded-pill px-4">
-                                    Ver Colección Actual
-                                </a>
+                            <div class="card-body p-4 d-flex flex-column">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <h5 class="card-title fw-bold text-dark mb-0"><?php echo htmlspecialchars($producto['nombre']); ?></h5>
+                                    <i class="bi bi-heart text-muted hover-scale"></i>
+                                </div>
+                                <p class="card-text text-muted small flex-grow-1"><?php echo htmlspecialchars($producto['descripcion']); ?></p>
+                                <div class="mt-auto">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <?php if ($producto['precio_original']): ?>
+                                            <span class="text-muted text-decoration-line-through small">$<?php echo number_format($producto['precio_original'], 2); ?></span>
+                                        <?php endif; ?>
+                                        <span class="h4 text-primary fw-bold mb-0">$<?php echo number_format($producto['precio'], 2); ?></span>
+                                    </div>
+                                    <div class="d-grid">
+                                        <a href="<?php echo BASE_URL; ?>/carrito/agregar/<?php echo $producto['id']; ?>" 
+                                           class="btn btn-outline-primary rounded-pill d-md-none">
+                                            <i class="bi bi-cart-plus me-2"></i>Agregar
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                <?php endforeach; ?>
+            </div>
+        <?php else: ?>
+            <div class="row animate-fade-in-up">
+                <div class="col-12">
+                    <div class="card border-0 bg-gradient-warning text-center py-5 rounded-4 shadow-sm">
+                        <div class="card-body">
+                            <i class="bi bi-flower3 display-1 text-white mb-3"></i>
+                            <h3 class="text-white mb-3">Próximamente Nuevas Flores</h3>
+                            <p class="text-white-80 mb-4">Estamos preparando una nueva colección especial para ti.</p>
+                            <a href="<?php echo BASE_URL; ?>/producto" class="btn btn-light btn-lg rounded-pill px-4">
+                                Ver Colección Actual
+                            </a>
+                        </div>
+                    </div>
                 </div>
-            <?php endif; ?>
-        </div>
-    </section>
+            </div>
+        <?php endif; ?>
+    </div>
+</section>
 
     <!-- Categorías -->
     <section class="py-5 bg-white">
